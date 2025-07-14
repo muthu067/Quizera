@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel='stylesheet' href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100vw;
+      min-height: 100vh;
+      justify-content: center;
+    }
+    .login-card {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-card button {
+      width: 100%;
+    }
+    .error-list {
+      margin-bottom: 10px;
+      color: #d9534f;
+      text-align: left;
+    }
+    .register-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 10px 0;
+      background: #6c757d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 5px;
+      transition: background 0.2s;
+      text-align: center;
+    }
+    .register-btn:hover {
+      background: #495057;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="error-list">
+      {% for field in form %}
+        {% if field.errors %}
+            <span>{{field.label_tag}}</span>
+            <span>{{field.errors}}</span><br>
+        {%endif%}
+      {%endfor%}
+
+      {% for error in form.non_field_errors %}
+        <span>{{error}}</span>
+      {%endfor%}
+    </div>
+    <div class="login-card">
+      <h2 style="margin-bottom: 20px;">Login</h2>
+      <form method='post'>
+        {% csrf_token %}
+        <input type="text" value='{{username}}' name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <div class="my-3 d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <div class="my-2 d-flex justify-content-end">
+          <span style="display:block; width:100%; text-align:center; margin-bottom:6px; color:#555;">
+            Not registered? <a href="{% url 'blog:register' %}" style="color:#007bff; text-decoration:underline;">Sign up</a>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

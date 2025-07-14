@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Courses</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header style="background: #007bff; color: #fff; padding: 1rem 0; text-align: center;">
+        <h1>My Course Platform</h1>
+        <nav>
+            <a href="{% url 'blog:home' %}" style="color: #fff; margin: 0 1rem;">Home</a>
+            <a href="{% url 'blog:contact' %}" style="color: #fff; margin: 0 1rem;">Contact</a>
+            <a href="{% url 'blog:about' %}" style="color: #fff; margin: 0 1rem;">About</a>
+            <a href="{% url 'blog:logout' %}" style="color: #fff; margin: 0 1rem;">Logout</a>
+        </nav>
+    </header>
+
+    <main style="min-height: 60vh;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: #222; color: #fff; text-align: center; padding: 1rem 0; margin-top: 2rem;">
+        &copy; {{ now|date:"Y" }} My Course Platform. All rights reserved.
+    </footer>
+</body>
+</html>

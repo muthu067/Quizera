@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 6px;
+}
+
+.page-item .page-link {
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #007bff;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.page-item .page-link:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+</style>
+    <div class="test">
+    {% if page_obj %}
+    {% for course in page_obj %}
+    <section class="course-card">
+        <h1>{{ course.title }}</h1>
+        <center><img style="height:100px" src="{{ course.img_url }}"/></center>
+        <p></p>
+        <p>Learn courses for free</p>
+        <a href="{% url 'blog:detail' slug=course.slug  %}" class="btn">Start course</a>
+    </section>
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination-container">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="First">&laquo; first</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.previous_page_number}}" aria-label="Previous">previous</a>
+    </li>
+    {% endif %}
+    <li class="page-item">
+      <span class="page-link">Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}.</span>
+    </li>
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.next_page_number}}" aria-label="Next">next</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?page={{page_obj.paginator.num_pages}}" aria-label="Last">last &raquo;</a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}
+    {% else %}
+    <p>No courses available right now</p>
+    {% endif %}
+    </div>
+{% endblock %}
